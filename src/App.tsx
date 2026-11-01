@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { ChapterTwoBuddy } from './components/ChapterTwoBuddy';
+import { BuddySection } from './components/BuddySection';
 import { DevIoSection } from './components/DevIoSection';
 import { ChapterFourPhaseForm } from './components/ChapterFourPhaseForm';
 import { ChapterFiveOpenSource } from './components/ChapterFiveOpenSource';
@@ -45,12 +45,9 @@ export default function App() {
           <DevIoSection />
         </section>
 
-        {/* Section 3: Buddy Biomimetic R&D (#buddy-rd) - Unaltered showcase ready for Phase 3 */}
+        {/* Section 3: Buddy Biomimetic R&D (#buddy-rd) */}
         <section id="buddy-rd" className="scroll-mt-16">
-          <ChapterTwoBuddy
-            onOpenWhitepaperModal={handleOpenWhitepaperModal}
-            onOpenDemoModal={handleOpenDemoModal}
-          />
+          <BuddySection />
         </section>
 
         {/* Section 4: Phaseform Audio Workstation (#phaseform) - Unaltered showcase ready for Phase 4 */}
