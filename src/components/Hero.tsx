@@ -1,221 +1,196 @@
-// Copyright (c) 2024-2026 anyone-Hub LLC. All rights reserved.
+// Copyright (c) 2024-2026 Anyone-Hub LLC. All rights reserved.
 
-import React, { useEffect, useRef } from 'react';
-import { ArrowDown, ArrowUpRight, FileText, Cpu, Zap, Activity, HardDrive } from 'lucide-react';
-import { CANONICAL_METRICS, COMPANY_DOMAINS } from '../data/canonicalData';
+import React from 'react';
+import { ArrowUpRight, Globe, Wrench, Code2, ShieldCheck, Layers, Cpu } from 'lucide-react';
+import { COMPANY_DOMAINS } from '../data/canonicalData';
 
-interface HeroProps {
-  onOpenWhitepaperModal: () => void;
-}
-
-export const Hero: React.FC<HeroProps> = ({ onOpenWhitepaperModal }) => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animationFrameId: number;
-    let width = (canvas.width = canvas.parentElement?.clientWidth || window.innerWidth);
-    let height = (canvas.height = canvas.parentElement?.clientHeight || 650);
-
-    const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
-      height = canvas.height = canvas.parentElement?.clientHeight || 650;
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // Generate topological neural nodes
-    const nodeCount = Math.min(width < 768 ? 40 : 75, 90);
-    const nodes: Array<{
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      baseAlpha: number;
-      pulseSpeed: number;
-      phase: number;
-    }> = [];
-
-    for (let i = 0; i < nodeCount; i++) {
-      nodes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        radius: Math.random() * 1.8 + 1,
-        baseAlpha: Math.random() * 0.5 + 0.2,
-        pulseSpeed: Math.random() * 0.03 + 0.01,
-        phase: Math.random() * Math.PI * 2,
-      });
-    }
-
-    let time = 0;
-    const render = () => {
-      time += 0.02;
-      ctx.clearRect(0, 0, width, height);
-
-      // Draw subtle connective synaptic pathways
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 110) {
-            const alpha = (1 - dist / 110) * 0.16;
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
-            ctx.lineWidth = 0.8;
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw neural parcel nodes
-      for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
-        node.x += node.vx;
-        node.y += node.vy;
-
-        if (node.x < 0 || node.x > width) node.vx *= -1;
-        if (node.y < 0 || node.y > height) node.vy *= -1;
-
-        const dynamicAlpha = node.baseAlpha + Math.sin(time * node.pulseSpeed + node.phase) * 0.2;
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 240, 255, ${Math.max(0.08, dynamicAlpha)})`;
-        ctx.fill();
-      }
-
-      animationFrameId = requestAnimationFrame(render);
-    };
-
-    render();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-
+export const Hero: React.FC = () => {
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center pt-8 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden technical-grid">
-      {/* 60fps Interactive Ambient Neural Mesh Canvas (pointer-events-none) */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-40"
-      />
+    <section id="our-story" className="pt-14 pb-20 px-4 sm:px-6 lg:px-8 border-b border-white/[0.08] relative">
+      {/* Background ambient lighting */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#00F0FF]/[0.025] rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Atmospheric radial gradient spotlight */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#00F0FF]/[0.035] rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="max-w-4xl mx-auto space-y-12 relative z-10 text-left">
+        {/* Header Kicker & Company Motto */}
+        <div className="space-y-4 border-b border-white/[0.08] pb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00F0FF]/10 border border-[#00F0FF]/30 text-xs font-mono text-[#00F0FF]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] animate-pulse" />
+            <span>Bringing back the true meaning of open source.</span>
+          </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
-        {/* Institutional Kicker */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/[0.03] border border-white/[0.09] rounded-full text-xs font-mono text-slate-300">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF]" />
-          <span>ANYONE-HUB LLC // DEEP-TECH R&D APEX</span>
-          <span className="text-slate-600">|</span>
-          <span className="text-[#00F0FF]">{CANONICAL_METRICS.powerEnvelope} SOVEREIGN COMPUTE</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12] font-sans">
+            Built from Iron. Forged in Code.
+          </h1>
+
+          <p className="text-base sm:text-lg text-slate-300 font-sans leading-relaxed pt-1">
+            An unvarnished chronicle of physical trades, catastrophic injury, self-taught systems architecture, and the founding of an uncompromised open-source engineering ecosystem.
+          </p>
         </div>
 
-        {/* Primary Headline */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] max-w-4xl mx-auto text-balance">
-          Engineering Sovereign Intelligence, Local-First Developer Systems, and Zero-Latency Hardware.
-        </h1>
+        {/* The 4-Part Founder & Company Narrative */}
+        <div className="space-y-8">
+          {/* Part 1 */}
+          <div className="p-6 rounded-lg bg-[#0A0D15] border border-white/[0.08] space-y-3">
+            <div className="flex items-center gap-2.5 text-white font-semibold text-base sm:text-lg font-sans">
+              <div className="p-1.5 rounded bg-white/[0.05] text-[#00F0FF]">
+                <Wrench className="w-4 h-4" />
+              </div>
+              <h3>Before the Code — Mechanics, Construction & The Injury</h3>
+            </div>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans">
+              For years, my life was rooted in physical trades—heavy automotive mechanics (holding 8 GM Master Certifications as a World Class Certified Mechanic), fabrication, and construction. In that world, you learn fast that tolerances aren't negotiable; if a gear or seal is off by a fraction of a millimeter, the whole machine fails under load. Then, three years ago, a severe work injury shattered my elbow—and with my other arm taking the strain alongside it, the physical trade I had spent my life mastering was suddenly off the table.
+            </p>
+          </div>
 
-        {/* Sub-headline */}
-        <p className="text-base sm:text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
-          Anyone-Hub LLC is an independent deep-tech research and software engineering company building true biological-parity synthetic cognition (<span className="text-white font-semibold">Buddy</span>), next-generation mobile & wearable developer platforms (<span className="text-white font-semibold">AnyOne-Hub</span>), GPU-accelerated digital audio workstations (<span className="text-white font-semibold">PhaseForm</span>), and zero-paywall open-source infrastructure.
-        </p>
+          {/* Part 2 */}
+          <div className="p-6 rounded-lg bg-[#0A0D15] border border-white/[0.08] space-y-3">
+            <div className="flex items-center gap-2.5 text-white font-semibold text-base sm:text-lg font-sans">
+              <div className="p-1.5 rounded bg-white/[0.05] text-amber-400">
+                <Code2 className="w-4 h-4" />
+              </div>
+              <h3>The Pivot — Starting from Zero Three Years Ago</h3>
+            </div>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans">
+              Most people in that position are forced to walk away from building things altogether. I refused to fold. If I couldn't build and diagnose complex machines with wrenches anymore, I was going to build them in software. Three years ago, I enrolled myself in school, taught myself modern software and systems architecture from scratch, and started building <strong className="text-white">Anyone-Hub</strong> from the ground up.
+            </p>
+          </div>
 
-        {/* Primary Action Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-          <a
-            href="#pillars"
-            className="px-6 py-3 text-sm font-semibold text-slate-950 bg-white hover:bg-slate-200 rounded transition-all flex items-center gap-2 shadow-lg hover:shadow-white/10"
-          >
-            <span>Explore 6 Product Pillars</span>
-            <ArrowDown className="w-4 h-4 text-slate-900" />
-          </a>
+          {/* Part 3 */}
+          <div className="p-6 rounded-lg bg-[#0A0D15] border border-white/[0.08] space-y-3">
+            <div className="flex items-center gap-2.5 text-white font-semibold text-base sm:text-lg font-sans">
+              <div className="p-1.5 rounded bg-white/[0.05] text-emerald-400">
+                <ShieldCheck className="w-4 h-4" />
+              </div>
+              <h3>Why We Exist — "Bringing Back the True Meaning of Open Source"</h3>
+            </div>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans">
+              When I entered the software industry, I realized modern developer tools were broken in the exact same way bad shop tools are: bloated, locked behind predatory subscriptions, dependent on massive cloud monopolies, and stripped of real ownership. I founded Anyone-Hub LLC with a single guiding motto: <strong className="text-[#00F0FF]">"Bringing back the true meaning of open source."</strong> No artificial paywalls, no corporate gatekeeping, and no half-baked simulations—just real, production-grade code shipped into the open.
+            </p>
+          </div>
 
-          <button
-            onClick={onOpenWhitepaperModal}
-            className="px-6 py-3 text-sm font-medium text-white bg-[#0D111A] hover:bg-[#131926] border border-white/[0.12] hover:border-[#00F0FF]/50 rounded transition-all flex items-center gap-2"
-          >
-            <FileText className="w-4 h-4 text-[#00F0FF]" />
-            <span>Buddy Biomimetic Whitepaper</span>
-          </button>
-
-          <a
-            href={COMPANY_DOMAINS.platformPortal}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-5 py-3 text-sm font-mono text-emerald-400 bg-emerald-950/20 hover:bg-emerald-950/40 border border-emerald-500/30 rounded transition-all flex items-center gap-2"
-          >
-            <span>Launch Portal (anyonehub.us.kg)</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </a>
+          {/* Part 4 */}
+          <div className="p-6 rounded-lg bg-[#0A0D15] border border-white/[0.08] space-y-3">
+            <div className="flex items-center gap-2.5 text-white font-semibold text-base sm:text-lg font-sans">
+              <div className="p-1.5 rounded bg-white/[0.05] text-cyan-400">
+                <Layers className="w-4 h-4" />
+              </div>
+              <h3>Where We Started vs. Where We Are Today</h3>
+            </div>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans">
+              What began three years ago as a single developer hub has grown into a multi-disciplinary engineering company recognized across the open-source ecosystem—from publishing custom Kotlin Multiplatform libraries (<code className="text-[#00F0FF] font-mono text-xs px-1 py-0.5 rounded bg-white/[0.05]">Reaktor KMP</code>) and automated Gradle Project Health HTML diagnostic plugins directly to Maven Central and the Gradle Plugin Portal, to launching our flagship mobile IDE ecosystem (<strong className="text-white">Dev.io</strong>) on the Google Play Store, engineering low-latency audio/MIDI workstations (<strong className="text-white">Phaseform Studio & MIDI</strong>), and architecting a 5,000-file bare-metal C++20 synthetic brain (<strong className="text-white">Buddy</strong>) to solve the global data center energy and compute dilemma for the generations coming after us.
+            </p>
+          </div>
         </div>
 
-        {/* Verified Technical Telemetry Cards */}
-        <div className="pt-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto text-left">
-          <div className="bg-[#0D111A]/90 border border-white/[0.08] p-4 rounded relative group hover:border-[#00F0FF]/40 transition-colors">
-            <div className="flex items-center justify-between text-slate-500 text-xs font-mono mb-1">
-              <span>CORE ARCHITECTURE</span>
-              <Cpu className="w-3.5 h-3.5 text-[#00F0FF]" />
-            </div>
-            <div className="text-2xl font-bold font-mono text-white tabular-nums">
-              {CANONICAL_METRICS.linesOfCode}
-            </div>
-            <div className="text-xs text-slate-400 mt-1">
-              Hand-authored C++20/23 & TS LOC ({CANONICAL_METRICS.handAuthoredFiles} files)
-            </div>
+        {/* 4 Live Domain Hub Cards ("Where We Started & Where We Are Now") */}
+        <div className="space-y-4 pt-4">
+          <div className="flex items-center justify-between border-b border-white/[0.08] pb-2">
+            <span className="text-xs font-mono uppercase text-slate-400 tracking-wider flex items-center gap-2">
+              <Globe className="w-3.5 h-3.5 text-[#00F0FF]" />
+              <span>Where We Started & Where We Are Now // 4 Live Properties</span>
+            </span>
+            <span className="text-[11px] font-mono text-slate-500 hidden sm:inline">
+              LIVE ECOSYSTEM DIRECTORY
+            </span>
           </div>
 
-          <div className="bg-[#0D111A]/90 border border-white/[0.08] p-4 rounded relative group hover:border-emerald-400/40 transition-colors">
-            <div className="flex items-center justify-between text-slate-500 text-xs font-mono mb-1">
-              <span>CORTICAL PARCELS</span>
-              <Activity className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Card 1: anyonehub.tech */}
+            <div className="p-5 rounded-lg bg-[#0A0D15] border border-white/[0.08] hover:border-[#00F0FF]/40 transition-colors flex flex-col justify-between space-y-3">
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between font-mono text-xs">
+                  <span className="text-slate-400 font-semibold">HQ & AUDIO LAB</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-[#00F0FF]/10 text-[#00F0FF] border border-[#00F0FF]/20">
+                    CORPORATE APEX
+                  </span>
+                </div>
+                <h4 className="text-base font-bold font-mono text-white">anyonehub.tech</h4>
+                <p className="text-xs text-slate-400 font-sans leading-relaxed">
+                  The central headquarters for Anyone-Hub LLC, our core mission, and the official home of Phaseform Studio & Phaseform MIDI.
+                </p>
+              </div>
+              <a
+                href={COMPANY_DOMAINS.corporateApex}
+                className="text-xs font-mono text-[#00F0FF] hover:underline flex items-center gap-1 pt-1"
+              >
+                <span>Visit corporate headquarters</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
             </div>
-            <div className="text-2xl font-bold font-mono text-white tabular-nums">
-              {CANONICAL_METRICS.bilateralParcels} HCP
-            </div>
-            <div className="text-xs text-slate-400 mt-1">
-              Human Connectome Project MMP 1.0 (180 L / 180 R)
-            </div>
-          </div>
 
-          <div className="bg-[#0D111A]/90 border border-white/[0.08] p-4 rounded relative group hover:border-amber-400/40 transition-colors">
-            <div className="flex items-center justify-between text-slate-500 text-xs font-mono mb-1">
-              <span>ENERGY ENVELOPE</span>
-              <Zap className="w-3.5 h-3.5 text-amber-400" />
+            {/* Card 2: anyonehub.us.kg */}
+            <div className="p-5 rounded-lg bg-[#0A0D15] border border-white/[0.08] hover:border-emerald-400/40 transition-colors flex flex-col justify-between space-y-3">
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between font-mono text-xs">
+                  <span className="text-emerald-400 font-semibold">DEV.IO LAUNCHPAD</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-950/30 text-emerald-400 border border-emerald-500/20">
+                    WHERE IT STARTED
+                  </span>
+                </div>
+                <h4 className="text-base font-bold font-mono text-white">anyonehub.us.kg</h4>
+                <p className="text-xs text-slate-400 font-sans leading-relaxed">
+                  The original launchpad for the Anyone-Hub developer platform, now evolving into the Dev.io mobile development OS, Build Commander, and anyone-connect ecosystem.
+                </p>
+              </div>
+              <a
+                href={COMPANY_DOMAINS.platformPortal}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-mono text-emerald-400 hover:underline flex items-center gap-1 pt-1"
+              >
+                <span>Launch developer platform</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
             </div>
-            <div className="text-2xl font-bold font-mono text-white tabular-nums">
-              {CANONICAL_METRICS.powerEnvelope}
-            </div>
-            <div className="text-xs text-slate-400 mt-1">
-              Biological parity vs Megawatts for frontier LLMs
-            </div>
-          </div>
 
-          <div className="bg-[#0D111A]/90 border border-white/[0.08] p-4 rounded relative group hover:border-violet-400/40 transition-colors">
-            <div className="flex items-center justify-between text-slate-500 text-xs font-mono mb-1">
-              <span>HOT-PATH DETERMINISM</span>
-              <HardDrive className="w-3.5 h-3.5 text-violet-400" />
+            {/* Card 3: foundational-biomimetics.info */}
+            <div className="p-5 rounded-lg bg-[#0A0D15] border border-white/[0.08] hover:border-cyan-400/40 transition-colors flex flex-col justify-between space-y-3">
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between font-mono text-xs">
+                  <span className="text-cyan-400 font-semibold">BUDDY DIVISION</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-950/30 text-cyan-400 border border-cyan-500/20">
+                    COGNITIVE R&D
+                  </span>
+                </div>
+                <h4 className="text-base font-bold font-mono text-white">foundational-biomimetics.info</h4>
+                <p className="text-xs text-slate-400 font-sans leading-relaxed">
+                  Our dedicated research division housing Buddy, our bare-metal x86_64 C++20 biomimetic cognitive architecture built to solve the data center compute crisis.
+                </p>
+              </div>
+              <a
+                href={COMPANY_DOMAINS.biomimeticsDiv}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-mono text-cyan-400 hover:underline flex items-center gap-1 pt-1"
+              >
+                <span>Explore biomimetic research</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
             </div>
-            <div className="text-2xl font-bold font-mono text-white tabular-nums">
-              0 OS Heap
-            </div>
-            <div className="text-xs text-slate-400 mt-1">
-              Zero heap allocations in the 40 Hz gamma loop
+
+            {/* Card 4: anyone-hub.me */}
+            <div className="p-5 rounded-lg bg-[#0A0D15] border border-white/[0.08] hover:border-amber-400/40 transition-colors flex flex-col justify-between space-y-3">
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between font-mono text-xs">
+                  <span className="text-amber-400 font-semibold">FREE UTILITIES</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-amber-950/30 text-amber-400 border border-amber-500/20">
+                    100% FREE & ZERO-PAYWALL
+                  </span>
+                </div>
+                <h4 className="text-base font-bold font-mono text-white">anyone-hub.me</h4>
+                <p className="text-xs text-slate-400 font-sans leading-relaxed">
+                  Our 100% free, zero-paywall virtual business card builder, NFC tooling, and anyone-QR gen custom QR platform.
+                </p>
+              </div>
+              <a
+                href={COMPANY_DOMAINS.freePublicUtility}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-mono text-amber-400 hover:underline flex items-center gap-1 pt-1"
+              >
+                <span>Access free community tools</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
             </div>
           </div>
         </div>
