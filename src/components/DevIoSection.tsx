@@ -16,7 +16,7 @@ import { COMPANY_DOMAINS } from '../data/canonicalData';
 
 export const DevIoSection: React.FC = () => {
   return (
-    <article id="dev-io" className="py-20 px-4 sm:px-6 lg:px-8 border-b border-white/[0.08] relative">
+    <article id="dev.io" className="py-20 px-4 sm:px-6 lg:px-8 border-b border-white/[0.08] relative">
       {/* Ambient emerald spotlight */}
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-emerald-500/[0.025] rounded-full blur-[140px] pointer-events-none" />
 

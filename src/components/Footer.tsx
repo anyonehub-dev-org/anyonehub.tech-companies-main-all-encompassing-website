@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ExternalLink, Terminal, Mail, MapPin } from 'lucide-react';
-import { COMPANY_DOMAINS } from '../data/canonicalData';
+import { COMPANY_DOMAINS, CONTACT_CHANNELS } from '../data/canonicalData';
 
 interface FooterProps {
   onOpenRelationsModal?: (subject?: string) => void;
@@ -80,36 +80,46 @@ export const Footer: React.FC<FooterProps> = ({ onOpenRelationsModal }) => {
             </ul>
           </div>
 
-          {/* Column 3: Official Verified Desks */}
+          {/* Column 3: 3 Official Verified Contact Desks */}
           <div className="space-y-3 font-mono">
             <div className="text-xs uppercase text-white font-semibold">
-              Official Communications
+              Official Contact Desks
             </div>
             <ul className="space-y-2.5 text-[11px] text-slate-400">
               <li>
-                <span className="text-slate-500 block text-[10px]">ENGINEERING & OPEN SOURCE:</span>
+                <span className="text-slate-500 block text-[10px]">GENERAL & MAINTAINERS:</span>
+                <a
+                  href="mailto:info@anyonehub.tech"
+                  className="text-white hover:text-[#00F0FF] flex items-center gap-1.5 transition-colors"
+                >
+                  <Mail className="w-3 h-3 text-slate-400" />
+                  <span>info@anyonehub.tech</span>
+                </a>
+              </li>
+              <li>
+                <span className="text-slate-500 block text-[10px]">ENGINEERING & OPEN-SOURCE:</span>
                 <a
                   href="mailto:anyone-hub.dev@zohomail.com"
-                  className="text-white hover:text-[#00F0FF] flex items-center gap-1.5 transition-colors"
+                  className="text-white hover:text-emerald-400 flex items-center gap-1.5 transition-colors"
                 >
                   <Mail className="w-3 h-3 text-slate-400" />
                   <span>anyone-hub.dev@zohomail.com</span>
                 </a>
               </li>
               <li>
-                <span className="text-slate-500 block text-[10px]">BIOMIMETICS & R&D DESK:</span>
+                <span className="text-slate-500 block text-[10px]">BIOMIMETICS LAB & R&D:</span>
                 <a
-                  href="mailto:any1-hub@foundational-biomimetics.info"
+                  href="mailto:anyonehub.us.kg@foundational-biomimetics.info"
                   className="text-white hover:text-cyan-400 flex items-center gap-1.5 transition-colors"
                 >
                   <Mail className="w-3 h-3 text-slate-400" />
-                  <span>any1-hub@foundational-biomimetics.info</span>
+                  <span>anyonehub.us.kg@foundational-biomimetics.info</span>
                 </a>
               </li>
               {onOpenRelationsModal && (
                 <li className="pt-1">
                   <button
-                    onClick={() => onOpenRelationsModal('Institutional Relations')}
+                    onClick={() => onOpenRelationsModal('General Corporate Inquiry')}
                     className="text-xs font-mono text-[#00F0FF] hover:underline"
                   >
                     Open Institutional Inquiries Form →
@@ -120,13 +130,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenRelationsModal }) => {
           </div>
         </div>
 
-        {/* Bottom Tier: Legal Copyright (Cleaned — No Full Middle/Last Name, No Jr., No Fake All-Caps Badges) */}
+        {/* Bottom Tier: Legal Copyright (Cleaned) */}
         <div className="pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-slate-500">
           <div>
             © 2024–2026 Anyone-Hub LLC. All rights reserved. Founded and architected by Tom @ Anyone-Hub.
           </div>
           <div className="text-slate-600 text-[10px]">
-            anyonehub.tech • Production Release Phase 1
+            anyonehub.tech • Production Release Phase 5
           </div>
         </div>
       </div>

@@ -3,30 +3,20 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { BuddySection } from './components/BuddySection';
 import { DevIoSection } from './components/DevIoSection';
-import { ChapterFourPhaseForm } from './components/ChapterFourPhaseForm';
-import { ChapterFiveOpenSource } from './components/ChapterFiveOpenSource';
-import { ChapterSixInquiries } from './components/ChapterSixInquiries';
+import { BuddySection } from './components/BuddySection';
+import { PhaseformSection } from './components/PhaseformSection';
+import { OpenSourceSection } from './components/OpenSourceSection';
+import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { RelationsModal } from './components/RelationsModal';
 
 export default function App() {
   const [relationsModalOpen, setRelationsModalOpen] = useState(false);
-  const [modalSubject, setModalSubject] = useState('General Institutional Inquiry');
+  const [modalSubject, setModalSubject] = useState('General Corporate Inquiry');
 
-  const handleOpenRelationsModal = (subject: string = 'General Institutional Inquiry') => {
+  const handleOpenRelationsModal = (subject: string = 'General Corporate Inquiry') => {
     setModalSubject(subject);
-    setRelationsModalOpen(true);
-  };
-
-  const handleOpenWhitepaperModal = () => {
-    setModalSubject('Executive Whitepaper Request - Buddy Biomimetic Mind');
-    setRelationsModalOpen(true);
-  };
-
-  const handleOpenDemoModal = () => {
-    setModalSubject('Robotics Laboratory Demonstration - Buddy Sensorium');
     setRelationsModalOpen(true);
   };
 
@@ -50,20 +40,20 @@ export default function App() {
           <BuddySection />
         </section>
 
-        {/* Section 4: Phaseform Audio Workstation (#phaseform) - Unaltered showcase ready for Phase 4 */}
+        {/* Section 4: Phaseform Audio Workstation (#phaseform) */}
         <section id="phaseform" className="scroll-mt-16">
-          <ChapterFourPhaseForm />
+          <PhaseformSection />
         </section>
 
-        {/* Section 5: Compiler Tooling & Open Source (#open-source) - Unaltered showcase ready for Phase 5 */}
+        {/* Section 5: Compiler Tooling & Open Source (#open-source) */}
         <section id="open-source" className="scroll-mt-16">
-          <ChapterFiveOpenSource />
+          <OpenSourceSection
+            onOpenMaintainerModal={() => handleOpenRelationsModal('Open-Source Maintainer Application')}
+          />
         </section>
 
-        {/* Section 6: Inquiries & Lab Relations */}
-        <section id="inquiries" className="scroll-mt-16">
-          <ChapterSixInquiries />
-        </section>
+        {/* Contact Us & Maintainer Dispatch Box (#contact) */}
+        <ContactSection />
       </main>
 
       {/* Cleaned Preserved Colophon & Legal Footer (#ecosystem-links) */}
